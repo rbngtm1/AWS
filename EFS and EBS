@@ -1,0 +1,37 @@
+#### EFS
+  * Note EBS can only be connected to one machine but EFS can be connected to multiple machine. 
+  * You use EFS to copy some data to other servers
+  * Go to EFS and create file system 
+  * create a NFS inbound rule for port 2049 on EFS security group
+  * you may follow up the amazon ec2 mount instructions (click link in file system UI) 
+  * in opt/ mount -t nfs fs-2342342.efs.us-east-1.amazonaws.com:/ /opt/folder   (efs for linux, nfs for rhel and others)(DNS name is in UI)
+  * run df -h  --you can see the file system attached
+  * You must have same folder and run above 2 command on both machine. 
+  * Whatever file you make on one machine under that folder will be reflected to another. 
+  * SAN(Storage array network) --is like EBS
+  * NAS(network attached storage) --is like EFS  (nfs is protocol)
+  * now when you do reboot, you need to again mount it. But we have solution below.
+  * vi /etc/fstab
+  * on last line add one more 0, add below line just below it
+  * fs-2342342.efs.us-east-1.amazonaws.com:/ /opt/folder       nfs       defaults       0 0  (change efs, nfs per machine)
+  * 0 0 talks about backups and systemchecks 
+  
+  
+#### EBS
+  * Create a volume with 2 GB for testing purpose and attach to a instance. Note they should be in same AZ
+  * lsblk --listblockstorage
+  * for new block storage to attach in a instance
+  * mkfs -t xfs /dev/xvdf --only if it is new volume, run this command for formating
+  * mount /dev/xvdf /opt/folder1
+  * have folder1 and some files in it. 
+  * vim /etc/fstab (do 5 steps below command , just below command is just an option)
+  * /dev/xvdf /opt/folder1           xfs              defaults       0 0
+  * You can do above thing with UUID, aws suggests doing so. 
+  * blkid 
+  * vim /etc/fstab
+  * UUID="copy id of /dev/xvdf" /opt/folder1          xfs       defaults       0 0
+  * umount /opt/folder1   ==for unmounting 
+  * now you can detach volume and attach to another machine. data will come up 
+  * file -s /dev/xvdf ==to see filesystem data
+  * mount -t  xfs /dev/xvdf /var/folder1
+  * you have the file now. 
