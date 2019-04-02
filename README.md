@@ -20,4 +20,7 @@ curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setu
 curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/AgentDependencies.tar.gz -O
 tar xvf AgentDependencies.tar.gz -C /tmp/
 sudo python ./awslogs-agent-setup.py --region us-east-1 --dependency-path /tmp/AgentDependencies
-  
+#### Instead of giving access key and secret key follow below steps:
+  * Create a role with cloudwatch logs
+  * Assign the role to ec2 machine , go to action, instance settings and attach/replace IAM role and assigh role that you created
+  * now go to cloudwatch and logs, you can see logs
