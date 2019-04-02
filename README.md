@@ -6,4 +6,18 @@
 #### Cloudwatch Logs
   * sudo yum update -y =>to pick up latest changes
   * sudo yum install -y awslogs  => install awslogs package
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html ==> visit this website for detail
+To run it directly from the internet, use the following commands and follow the prompts:
+
+curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py -O
+sudo python ./awslogs-agent-setup.py --region us-east-1
+If the preceding command does not work, try the following:
+
+sudo python3 ./awslogs-agent-setup.py --region us-east-1
+To download and run it standalone, use the following commands and follow the prompts:
+
+curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py -O
+curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/AgentDependencies.tar.gz -O
+tar xvf AgentDependencies.tar.gz -C /tmp/
+sudo python ./awslogs-agent-setup.py --region us-east-1 --dependency-path /tmp/AgentDependencies
   
