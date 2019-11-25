@@ -15,7 +15,14 @@
   * on last line add one more 0, add below line just below it
   * fs-2342342.efs.us-east-1.amazonaws.com:/ /opt/folder       nfs       defaults       0 0  (change efs, nfs per machine)
   * 0 0 talks about backups and systemchecks 
-  
+  ============================
+  easy set of steps for instance. select 2 subnet and create a EFS. 
+  1 install and start httpd(apache webserver) for testing. 
+  2 sudo yum install amazon-efs-utils -y
+  3 sudo mount -t fs-blabla:/ /var/www/html
+  cd /var/www/html, create basic html page
+  df -T (you will see file system correctly mounted) 
+  repeat the process for another 1,2,3 and you will notice that the html file you created is already there
   
 #### EBS
   * Create a volume with 2 GB for testing purpose and attach to a instance. Note they should be in same AZ
